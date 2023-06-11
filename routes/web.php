@@ -19,4 +19,25 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// ログイン後
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// 商品一覧
+Route::get('/home', [App\Http\Controllers\ProductController::class, 'index'])->name('index');
+
+Route::prefix('products')->group(function () {
+    // 商品詳細
+    Route::get('/show', [App\Http\Controllers\ProductController::class, 'show'])->name('show');
+
+    // 商品新規追加フォーム
+    Route::get('/create', [App\Http\Controllers\ProductController::class, 'create'])->name('create');
+
+    // 商品追加処理
+    Route::post('/store', [App\Http\Controllers\ProductController::class, 'store'])->name('store');
+
+    // 商品編集
+    Route::get('/edit', [App\Http\Controllers\ProductController::class, 'edit'])->name('edit');
+
+    // 商品削除
+    Route::post('/destroy', [App\Http\Controllers\ProductController::class, 'destroy'])->name('destroy');
+});
